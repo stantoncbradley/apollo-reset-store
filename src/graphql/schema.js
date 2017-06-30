@@ -11,21 +11,24 @@ const PersonType = new GraphQLObjectType({
   fields: {
     id: { type: GraphQLID },
     name: { type: GraphQLString },
+    time: { type: GraphQLString },
   },
 });
 
-const peopleData = [
-  { id: 1, name: 'John Smith' },
-  { id: 2, name: 'Sara Smith' },
-  { id: 3, name: 'Budd Deey' },
-];
+const getPeopleData = () => (
+  [
+    { id: 1, name: 'John Smith', time: new Date() },
+    { id: 2, name: 'Sara Smith', time: new Date() },
+    { id: 3, name: 'Budd Deey', time: new Date() },
+  ]
+)
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
     people: {
       type: new GraphQLList(PersonType),
-      resolve: () => peopleData,
+      resolve: () => getPeopleData(),
     },
   },
 });
